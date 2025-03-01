@@ -3,29 +3,74 @@
 <head>
     <title>Pi Music App</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script> <!-- Pi SDK -->
-    <script>Pi.init({ version: "2.0", appId: "YOUR_APP_ID" });</script> <!-- Replace YOUR_APP_ID -->
+    <!-- Pi SDK only loaded if not local -->
+    <script>if (window.location.protocol !== 'file:') document.write('<script src="https://sdk.minepi.com/pi-sdk.js"><\/script><script>Pi.init({ version: "2.0", appId: "YOUR_APP_ID" });<\/script>');</script>
 </head>
-<body>
+<body class="dark-theme">
     <div class="container">
         <h1>Pi Music App</h1>
         <div id="login-section">
-            <button id="pi-login-btn">Log in with Pi</button>
+            <button id="pi-login-btn" style="display: none;">Log in with Pi</button>
             <p id="user-info" style="display: none;">Welcome, <span id="username"></span>!</p>
         </div>
+        <button id="theme-toggle">Light Mode</button>
+        <button id="mode-toggle">Single Song Mode</button>
         <h2>Your Playlist</h2>
+        <div class="add-song">
+            <input type="text" id="song-url" placeholder="Enter song URL">
+            <input type="text" id="song-name" placeholder="Enter song name">
+            <input type="text" id="album-art" placeholder="Enter album art URL (optional)">
+            <textarea id="song-lyrics" placeholder="Enter time-stamped lyrics (e.g., '0:05 - Verse 1')"></textarea>
+            <button id="add-song-btn">Add Song</button>
+        </div>
         <ul class="song-list">
-            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+                data-lyrics="0:05 - Sample verse 1...\n0:15 - Chorus begins..." 
+                data-album="https://via.placeholder.com/150">
                 Song 1 - SoundHelix
                 <button class="play-btn">Play</button>
+                <button class="remove-btn">Remove</button>
             </li>
-            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" 
+                data-lyrics="0:10 - Song 2 intro...\n0:20 - Main melody..." 
+                data-album="https://via.placeholder.com/150">
                 Song 2 - SoundHelix
                 <button class="play-btn">Play</button>
+                <button class="remove-btn">Remove</button>
             </li>
-            <li>Song 3 - Artist C</li>
+            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" 
+                data-lyrics="0:08 - Song 4 starts...\n0:18 - Bridge section..." 
+                data-album="https://via.placeholder.com/150">
+                Song 4 - SoundHelix
+                <button class="play-btn">Play</button>
+                <button class="remove-btn">Remove</button>
+            </li>
         </ul>
-        <audio id="audio-player" controls></audio>
+        <div class="player-controls">
+            <audio id="audio-player"></audio>
+            <img id="album-art-display" src="https://via.placeholder.com/150" alt="Album Art">
+            <div id="current-song">Now Playing: None</div>
+            <div class="controls">
+                <button id="prev-btn">Previous</button>
+                <button id="stop-btn">Stop</button>
+                <button id="next-btn">Next</button>
+                <button id="shuffle-btn">Shuffle Off</button>
+                <button id="repeat-btn">Repeat Off</button>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+                <label for="volume-slider">Volume</label>
+            </div>
+            <div class="equalizer">
+                <label for="bass-slider">Bass</label>
+                <input type="range" id="bass-slider" min="-10" max="10" value="0" disabled>
+                <label for="treble-slider">Treble</label>
+                <input type="range" id="treble-slider" min="-10" max="10" value="0" disabled>
+            </div>
+            <div class="progress">
+                <input type="range" id="progress-bar" min="0" max="100" value="0">
+                <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <div id="lyrics-display">Lyrics will appear here when a song is playing.</div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
