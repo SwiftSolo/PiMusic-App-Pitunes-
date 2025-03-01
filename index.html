@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pi Music App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script> <!-- Pi SDK -->
+    <script>Pi.init({ version: "2.0", appId: "YOUR_APP_ID" });</script> <!-- Replace YOUR_APP_ID -->
+</head>
+<body>
+    <div class="container">
+        <h1>Pi Music App</h1>
+        <div id="login-section">
+            <button id="pi-login-btn">Log in with Pi</button>
+            <p id="user-info" style="display: none;">Welcome, <span id="username"></span>!</p>
+        </div>
+        <h2>Your Playlist</h2>
+        <ul class="song-list">
+            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                Song 1 - SoundHelix
+                <button class="play-btn">Play</button>
+            </li>
+            <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+                Song 2 - SoundHelix
+                <button class="play-btn">Play</button>
+            </li>
+            <li>Song 3 - Artist C</li>
+        </ul>
+        <audio id="audio-player" controls></audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
